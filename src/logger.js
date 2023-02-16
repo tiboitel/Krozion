@@ -1,7 +1,7 @@
 const sqlite3 = require('sqlite3').verbose();
-const { databasePath, databaseName } = require('../config/config');
+const { database } = require('../config/config');
 
-const db = new sqlite3.Database(databasePath + databaseName)
+const db = new sqlite3.Database(database.path + database.name);
 
 class Logger {
 
@@ -13,7 +13,7 @@ class Logger {
 
 		// Todo: Verifiy the existance of the table on database. If not create
 		// it.
-		
+
 		return Logger.instance
 	}
 

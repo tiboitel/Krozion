@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/tiboitel/Krozion/issues"
   },
-  "homepage": "https://github.com/tiboitel/Krozion#readme"
+  "homepage": "https://github.com/tiboitel/Krozion#readme",
+  "dependencies": {
+    "sqlite3": "^5.1.4"
+  }
 }

@@ -1,9 +1,11 @@
 const TcpServer = require('../server')
-const { host, port } = require('../../config/config');
+const { database } = require('../../config/config');
 
 function start() {
+
+	const tcpServer = new TcpServer(database.host, database.port);
+
 	// Start the TCP Server.
-	const tcpServer = new TcpServer(host, port);
 	tcpServer.listen();
 
 	// TODO: Start the HTTP API.

@@ -1,0 +1,6 @@
+{
+	"host": HOST (Exemple: localhost),
+	"port": PORT (Exemple: 3000),
+	"databasePath": "./data/",
+	"databaseName": "logs.db"
+}

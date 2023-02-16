@@ -1,67 +1,73 @@
-const net = require('net')
-const {host, port} = require('../config/config')
+const net = require('net');
+const Logger = require('./logger');
 
-const server = net.createServer()
+class TCPServer {
+  constructor(host, port) {
+    this.logger = Logger;
+    this.server = net.createServer();
+    this.sockets = [];
+    this.listen = this.listen.bind(this);
+	this.host = host;
+	this.port = port;
+    this.onClientConnection = this.onClientConnection.bind(this);
+    this.onClientDataReceived = this.onClientDataReceived.bind(this);
+    this.onClientDisconnection = this.onClientDisconnection.bind(this);
+    this.onClientError = this.onClientError.bind(this);
+  }
 
-let sockets = [];
+  listen() {
+    this.server.listen(this.port, this.host, () => {
+      console.log("[Krozion] Start listening to %j", this.server.address());
+    });
 
-// Listen on host:port
-server.listen(host, port, () => {
-	console.log("[Krozion] Start listening to %j", server.address())
-})
+    // Set up callback on client connection.
+    this.server.on('connection', this.onClientConnection);
+    this.server.on('error', this.onClientError);
+  }
 
-// Set up callback on client connection.
-server.on('connection', onClientConnection)
-server.on('error', (err) => { console.log("[Krozion] Unable to start the TCP"
-	+ "server.\r\n" + err)})
+  onClientConnection(socket) {
+    const remote = `${socket.remoteAddress}:${socket.remotePort}`;
+    console.log("[Krozion] New client connection from %s", remote);
 
-// Callback on client connection.
-function onClientConnection(socket) {
-	let remote
+    // Keep a reference on the current client socket
+    this.sockets.push(socket);
 
-	remote = socket.remoteAddress + ":" + socket.remotePort
-	console.log("[Krozion] New client connection from %s", remote);
+    // Set up events.
+    socket.on('data', this.onClientDataReceived);
+    socket.on('close', this.onClientDisconnection);
+    socket.on('error', this.onClientError);
+  }
 
-	// Keep a reference on the current client socket
-	sockets.push(socket)
+  onClientDataReceived(data) {
+    // Todo: call a proper data handler. This is just for test purpose.
+    let severity;
+    let message;
 
-	// Set up events.
-	socket.on('data', onClientDataReceived)
-	socket.on('close', onClientDisconnection)
-	socket.on('error', onClientError)
+    severity = data.split(':')[0];
+    message = data.split(':')[1];
+
+    const remote = `${this.socket.remoteAddress} / ${this.socket.remotePort}`;
+    console.log("[RCV](%s) <%s>:<%s>", remote, severity, message);
+  }
+
+  onClientDisconnection(data) {
+    const index = this.sockets.findIndex((curr) => {
+      return curr.remoteAddress === this.socket.remoteAddress &&
+        curr.remotePort === this.socket.remotePort;
+    });
+
+    // Remove reference of the client on sockets array.
+    if (index !== -1) {
+      this.sockets.splice(index, 1);
+    }
+
+    console.log("[Krozion] Disconnection of client: %s:%s",
+      this.socket.remoteAddress, this.socket.remotePort);
+  }
+
+  onClientError(error) {
+    console.log("[ERROR]: %s", error);
+  }
 }
 
-// When data is received from client event handler.
-function onClientDataReceived(data) {
-	// Todo: call a proper data handler. This is just for test purpose.
-	let severity
-	let message
-
-	severity = data.split(':')[0]
-	message = data.split(':')[1]
-
-	console.log("[RCV](" + socket.remoteAddress + " / " +
-		socket.remotePort +") <" + severity + ">:<" + message + ">")
-}
-
-// When client disconnect event handler.
-function onClientDisconnection(data) {
-	let index
-
-	// Found the index of the disconnected client.
-	index = sockets.findIndex(function(curr) {
-		return curr.remoteAddress === socket.remoteAddress &&
-			curr.remotePort === socket.remotePort
-	})
-
-	// Remove reference of the client on sockets array.
-	if (index !== -1)
-		sockets.splice(index, 1)
-
-	console.log("[Krozion] Disconnection of client: " + socket.remoteAddress +
-		":" + socket.remotePort)
-}
-
-function onClientError(error) {
-	console.log("[ERROR] : " + error)
-}
+module.exports = TCPServer;

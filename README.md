@@ -15,15 +15,17 @@ Krozion is a simple yet professional Node.js TCP server that receives log messag
 
 To use Krozion, first clone the repository and install the dependencies:
 
-`git clone https://github.com/<username>/krozion.git
-cd krozion
-npm install`
+`git clone https://github.com/<username>/krozion.git`
+
+`cd krozion`
+
+`npm install`
 
 Next, create a configuration file by copying the example config file:
 
 `cp config/config.example.js config/config.js`
 
-Edit the config.js file to customize the settings, such as the port number and log file location.
+Edit the config.example.json file to customize the settings, such as the port number and log file location.
 
 To start the server, run the following command:
 

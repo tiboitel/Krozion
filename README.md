@@ -13,10 +13,10 @@ Krozion is a simple yet professional Node.js TCP server that receives log messag
 
 # Usage
 
-To use Zappify, first clone the repository and install the dependencies:
+To use Krozion, first clone the repository and install the dependencies:
 
-`git clone https://github.com/<username>/zappify.git
-cd zappify
+`git clone https://github.com/<username>/krozion.git
+cd krozion
 npm install`
 
 Next, create a configuration file by copying the example config file:
@@ -71,7 +71,7 @@ Krozion provides the following command-line commands:
 
 # Contributing
 
-Contributions are welcome! To contribute to Zappify, please follow these steps:
+Contributions are welcome! To contribute to Krozion, please follow these steps:
 
     Fork the repository
     Create a new branch for your changes
@@ -81,6 +81,6 @@ Contributions are welcome! To contribute to Zappify, please follow these steps:
 
 # License
 
-Zappify is licensed under the MIT license. See the LICENSE file for more details.
+Krozion is licensed under the MIT license. See the LICENSE file for more details.
 
-Thank you for using Zappify! If you have any issues or suggestions, please submit an issue or pull request.
+Thank you for using Krozion! If you have any issues or suggestions, please submit an issue or pull request.

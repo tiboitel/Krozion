@@ -1,0 +1,19 @@
+{
+  "name": "krozion",
+  "version": "1.0.0",
+  "description": "Krozion is a simple yet professional Node.js TCP server that receives log messages from external applications and accepts command-line commands. It is designed to be fast, reliable, and easy to use.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tiboitel/Krozion.git"
+  },
+  "author": "tiboitel",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tiboitel/Krozion/issues"
+  },
+  "homepage": "https://github.com/tiboitel/Krozion#readme"
+}

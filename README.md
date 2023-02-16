@@ -1,4 +1,4 @@
-# Krozion
+## Krozion
 
 Krozion is a simple yet professional Node.js TCP server that receives log messages from external applications and accepts command-line commands. It is designed to be fast, reliable, and easy to use.
 
@@ -61,7 +61,7 @@ Krozion provides a simple API for sending log messages to the server. The API en
 
     The severity field can be one of debug, info, warn, or error.
 
-Commands
+# Commands
 
 Krozion provides the following command-line commands:
 

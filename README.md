@@ -33,7 +33,7 @@ To start the server, run the following command:
 
 To send a log message to the server, use a TCP client to connect to the server and send the message in the following format:
 
-`<severity>:<message>`
+`<severity>|<message>`
 
 For example:
 

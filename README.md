@@ -52,34 +52,32 @@ API
 
 Krozion provides a simple API for sending log messages to the server. The API endpoints are as follows:
 
-    POST /log - Send a log message in the following JSON format:
+POST /log - Send a log message in the following JSON format:
 
-    json
+`{
+    "severity": "info",
+    "message": "Something happened"
+}`
 
-    {
-        "severity": "info",
-        "message": "Something happened"
-    }
-
-    The severity field can be one of debug, info, warn, or error.
+The severity field can be one of debug, info, warn, or error.
 
 # Commands
 
 Krozion provides the following command-line commands:
 
-    `npm start - Start the server
-    npm run stop - Stop the server
-    npm run restart - Restart the server`
+    start - Start the server
+    stop - Stop the server
+    restart - Restart the server
 
 # Contributing
 
 Contributions are welcome! To contribute to Krozion, please follow these steps:
 
-    Fork the repository
-    Create a new branch for your changes
-    Make your changes and commit them
-    Push your changes to your forked repository
-    Submit a pull request
+    - Fork the repository
+    - Create a new branch for your changes
+    - Make your changes and commit them
+    - Push your changes to your forked repository
+    - Submit a pull request
 
 # License
 

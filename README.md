@@ -1,6 +1,6 @@
 ## Krozion
 
-Krozion is a simple yet professional Node.js TCP server that receives log messages from external applications and accepts command-line commands. It is designed to be fast, reliable, and easy to use.
+Krozion is a minimalistand easy to use Node.js TCP server that receives log messages from external applications and accepts command-line commands. It is designed to be fast, reliable, and easy to use.
 
 # Features
 

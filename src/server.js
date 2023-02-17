@@ -6,67 +6,67 @@ class TCPServer {
     this.logger = Logger;
     this.server = net.createServer();
     this.sockets = [];
-    this.listen = this.listen.bind(this);
-	this.host = host;
-	this.port = port;
-    this.onClientConnection = this.onClientConnection.bind(this);
-    this.onClientDataReceived = this.onClientDataReceived.bind(this);
-    this.onClientDisconnection = this.onClientDisconnection.bind(this);
-    this.onClientError = this.onClientError.bind(this);
+    this.host = host;
+    this.port = port;
+
+	// Callback on client connecting to the server.
+    this.server.on('connection', (socket) => {
+      const remote = `${socket.remoteAddress}:${socket.remotePort}`;
+      console.log("[INFO] New client connection from %s", remote);
+
+      // Set the mode to string encoded in UTF-8. Could be change on
+	  // configuration file.
+      socket.setEncoding('utf-8');
+
+      // Keep a reference on the current client socket
+      this.sockets.push(socket);
+
+      // Set up socket events callbacks.
+	  // Callback on data received from client event.
+      socket.on('data', this.onClientDataReceived);
+
+	  // Callback on socket close event.
+      socket.on('close', () => {
+        const index = this.sockets.indexOf(socket);
+        if (index > -1) {
+          console.log("[INFO] Disconnection of client: %s:%s",
+            socket.remoteAddress, socket.remotePort);
+          // Client socket destruction.
+          socket.destroy();
+          // Remove reference of the client on sockets array.
+          this.sockets.splice(index, 1);
+        }
+	  });
+
+	  // Callback on client socket error.
+      socket.on('error', this.onError);
+    });
+
+	// Callback on server error.
+    this.server.on('error', this.onError);
   }
 
+  // Start the listening for incoming clients connections.
   listen() {
     this.server.listen(this.port, this.host, () => {
-      console.log("[Krozion] Start listening to %j", this.server.address());
+      console.log("[INFO] Start listening to %j", this.server.address());
     });
-
-    // Set up callback on client connection.
-    this.server.on('connection', this.onClientConnection);
-    this.server.on('error', this.onClientError);
   }
 
-  onClientConnection(socket) {
-    const remote = `${socket.remoteAddress}:${socket.remotePort}`;
-    console.log("[Krozion] New client connection from %s", remote);
-
-    // Keep a reference on the current client socket
-    this.sockets.push(socket);
-
-    // Set up events.
-    socket.on('data', this.onClientDataReceived);
-    socket.on('close', this.onClientDisconnection);
-    socket.on('error', this.onClientError);
-  }
-
+  // Function callback when data is received on client socket.
   onClientDataReceived(data) {
     // Todo: call a proper data handler. This is just for test purpose.
-    let severity;
-    let message;
+    const severity = data.split(':')[0];
+    const message = data.split(':')[1];
+    console.log("[RCV] <%s>:<%s>", severity, message);
 
-    severity = data.split(':')[0];
-    message = data.split(':')[1];
-
-    const remote = `${this.socket.remoteAddress} / ${this.socket.remotePort}`;
-    console.log("[RCV](%s) <%s>:<%s>", remote, severity, message);
+    //Todo: Store data in database.
   }
 
-  onClientDisconnection(data) {
-    const index = this.sockets.findIndex((curr) => {
-      return curr.remoteAddress === this.socket.remoteAddress &&
-        curr.remotePort === this.socket.remotePort;
-    });
-
-    // Remove reference of the client on sockets array.
-    if (index !== -1) {
-      this.sockets.splice(index, 1);
-    }
-
-    console.log("[Krozion] Disconnection of client: %s:%s",
-      this.socket.remoteAddress, this.socket.remotePort);
-  }
-
-  onClientError(error) {
+  onError(error) {
     console.log("[ERROR]: %s", error);
+
+	// Todo: Write the error on a log file.
   }
 }
 

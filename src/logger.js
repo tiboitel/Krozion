@@ -5,7 +5,8 @@ const db = new sqlite3.Database(database.path + database.name);
 
 class Logger {
 
-	// Constructor with a singleton pattern to ensure only one instance.
+	// Constructor with a singleton pattern to ensure only one instance of
+	// Loggert class.
 	constructor() {
 		if (!Logger.instance) {
 			Logger.instance = this;
@@ -34,8 +35,8 @@ class Logger {
 	// Retrieve logs entries from database and apply callback function.
 	getAllLogs(callback) {
 		db.all(`SELECT * FROM logs`, (err, rows) => {
-			console.error('[ERROR] Failed to retrieve logs: ${err.message}');
 			if (err) {
+				console.error('[ERROR] Failed to retrieve logs: ${err.message}');
 				callback([]);
 			} else {
 				callback(rows);

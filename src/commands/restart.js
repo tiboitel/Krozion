@@ -5,10 +5,7 @@ function restart() {
 
 	const tcpServer = new TcpServer(database.host, database.port);
 
-	// Start the TCP Server.
-	tcpServer.listen();
-
-	// TODO: Start the HTTP API.
+	// TODO: Restart the TCP server.
 }
 
 module.exports = restart;

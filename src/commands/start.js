@@ -1,9 +1,9 @@
 const TcpServer = require('../server')
-const { database } = require('../../config/config');
+const { host, port } = require('../../config/config');
 
 function start() {
 
-	const tcpServer = new TcpServer(database.host, database.port);
+	const tcpServer = new TcpServer(host, port);
 
 	// Start the TCP Server.
 	tcpServer.listen();

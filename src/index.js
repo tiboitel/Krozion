@@ -27,9 +27,11 @@ rl.on('line', (line) => {
   const command = line.trim();
   // Check if the command exist
   if (command in commands) {
+	// If the command is exit, close properly the readline interface.
 	if (command === 'exit') {
 		rl.close();
 	}
+	// Call the correspondant module command.
     commands[command]();
   } else {
     console.error(`Unknown command: ${command}`);

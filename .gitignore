@@ -1,4 +1,15 @@
-./node_modules/
-./data/logs.db
-./config/config.json
+# NPM
+node_modules
+npm-debug.log
 package-lock.json
+
+# TMP / Editor files
+.tmp
+.swo
+.swp
+.DS_Store
+*¬
+
+# Krozion
+data/logs.db
+config/config.json

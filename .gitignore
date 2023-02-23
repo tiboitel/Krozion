@@ -8,7 +8,7 @@ package-lock.json
 .swo
 .swp
 .DS_Store
-*¬
+*~
 
 # Krozion
 data/logs.db

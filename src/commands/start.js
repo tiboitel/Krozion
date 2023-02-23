@@ -1,9 +1,9 @@
 const TcpServer = require('../server')
-const { host, port } = require('../../config/config');
+const { host, port, useCompression } = require('../../config/config');
 
 function start() {
 
-	const tcpServer = new TcpServer(host, port);
+	const tcpServer = new TcpServer(host, port, useCompression);
 
 	// Start the TCP Server.
 	tcpServer.listen();

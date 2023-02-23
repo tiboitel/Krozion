@@ -1,6 +1,7 @@
 {
 	"host": YOUR_HOST,
 	"port": YOUR_PORT,
+	"useCompression": true,
 	"database":
 	{
 		"path": "./data/",
